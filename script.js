@@ -1,4 +1,4 @@
-var myWorker = new SharedWorker('worker.6.js');
+var myWorker = new SharedWorker('worker.7.js');
 console.log(myWorker);
 
 var input = $('#input1');
@@ -7,11 +7,10 @@ var output = $('#output');
 output.html('nothing happened');
 
 input.change(evt => {
-  console.log('change CB fired');
-  myWorker.port.postMessage(JSON.stringify(evt));
+  myWorker.port.postMessage(evt.target.value);
 });
 
-myWorker.port.onmessage = function(e) {
+myWorker.port.onmessage = function (e) {
   output.html('something happened');
-  console.log(e);
+  input.val(e.data);
 };
